@@ -14,6 +14,9 @@ import { IPublicClientApplication, PublicClientApplication, InteractionType, Bro
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
 import { HomeComponent } from './home/home.component';
+import { ReviewComponent } from './review/review.component';
+import { WereadService } from 'src/service/weread-service';
+import { CookieService } from 'ngx-cookie-service';
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
@@ -64,7 +67,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +101,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     },
     MsalService,
     MsalGuard,
-    MsalBroadcastService
+    MsalBroadcastService,
+    WereadService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
