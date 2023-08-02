@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "Weread2OneNote",
+    "description": "sync weread review/mark to OneNote",
+    "version": "1.0.0",
+    "action": {
+        "default_popup": "index.html"
+    },
+    "host_permissions": [
+        "https://weread.qq.com/*",
+        "https://i.weread.qq.com/*",
+        "http://127.0.0.1/*"
+    ]
+}
