@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { AuthenticationResult, InteractionStatus, PopupRequest, RedirectRequest, EventMessage, EventType } from '@azure/msal-browser';
+import { InteractionStatus, RedirectRequest, EventMessage, EventType, AuthenticationResult, PopupRequest } from '@azure/msal-browser';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -68,6 +68,16 @@ export class AppComponent implements OnInit {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }
 
+  loginRedirect() {
+    if (this.msalGuardConfig.authRequest) {
+      this.authService.loginRedirect({
+        ...this.msalGuardConfig.authRequest,
+      } as RedirectRequest);
+    } else {
+      this.authService.loginRedirect();
+    }
+  }
+
   loginPopup() {
     if (this.msalGuardConfig.authRequest) {
       this.authService.loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
@@ -83,8 +93,8 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logoutPopup({
-      mainWindowRedirectUri: "/"
+    this.authService.logoutRedirect({
+      account: this.authService.instance.getActiveAccount(),
     });
   }
 
