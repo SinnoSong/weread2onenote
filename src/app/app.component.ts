@@ -69,6 +69,7 @@ export class AppComponent implements OnInit {
   }
 
   loginRedirect() {
+    // 手动请求http做登录和交换code
     if (this.msalGuardConfig.authRequest) {
       this.authService.loginRedirect({
         ...this.msalGuardConfig.authRequest,
