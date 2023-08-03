@@ -3,12 +3,21 @@
     "name": "Weread2OneNote",
     "description": "sync weread review/mark to OneNote",
     "version": "1.0.0",
-    "action": {
-        "default_popup": "index.html"
+    "action": {},
+    "background": {
+        "service_worker": "worker.js"
     },
     "host_permissions": [
         "https://weread.qq.com/*",
         "https://i.weread.qq.com/*",
-        "http://127.0.0.1/*"
+        "http://127.0.0.1/*",
+        "*://*/*"
+    ],
+    "permissions": [
+        "storage",
+        "identity",
+        "tabs",
+        "webNavigation",
+        "cookies"
     ]
 }
