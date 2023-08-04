@@ -11,7 +11,7 @@ export const environment = {
         }
     },
     apiConfig: {
-        scopes: ['user.read', 'Notes.ReadWrite'],
+        scopes: ['user.read', 'Notes.ReadWrite', 'offline_access'],
         uri: 'https://graph.microsoft.com/v1.0/me'
     }
 };
