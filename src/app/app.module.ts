@@ -9,11 +9,9 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ReviewComponent } from './review/review.component';
-import { WereadService } from 'src/service/weread-service';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -34,7 +32,6 @@ import { CookieService } from 'ngx-cookie-service';
     HttpClientModule
   ],
   providers: [
-    WereadService,
     CookieService
   ],
   bootstrap: [AppComponent]
