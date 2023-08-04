@@ -4,7 +4,9 @@
     "description": "sync weread review/mark to OneNote",
     "version": "1.0.0",
     "action": {
-        "default_popup": "index.html"
+    },
+    "background": {
+        "service_worker": "worker.js"
     },
     "host_permissions": [
         "https://weread.qq.com/*",
