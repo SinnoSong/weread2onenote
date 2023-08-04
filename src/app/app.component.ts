@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
         // todo badrequest ,need fix
         const tokenUrl = `${environment.msalConfig.auth.authority}/oauth2/v2.0/token`;
         const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        // code is null
         const code = new URLSearchParams(response).get("code");
         const body = this.generateFormUrlEncoded({
           client_id: environment.msalConfig.auth.clientId,
