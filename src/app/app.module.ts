@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ReviewComponent } from './review/review.component';
-import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -30,9 +29,6 @@ import { CookieService } from 'ngx-cookie-service';
     MatListModule,
     MatMenuModule,
     HttpClientModule
-  ],
-  providers: [
-    CookieService
   ],
   bootstrap: [AppComponent]
 })
