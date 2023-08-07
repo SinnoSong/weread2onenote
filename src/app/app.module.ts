@@ -10,14 +10,20 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
-import { ReviewComponent } from './review/review.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
+import { NotebooksComponent } from './components/notebooks/notebooks.component';
+import { BookItemComponent } from './components/book-item/book-item.component';
+import { ReviewComponent } from './components/review/review.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    ReviewsComponent,
+    NotebooksComponent,
+    BookItemComponent,
     ReviewComponent
   ],
   imports: [

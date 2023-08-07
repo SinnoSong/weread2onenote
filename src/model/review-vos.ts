@@ -49,6 +49,7 @@ interface ReviewDetail {
     isReposted: number
     book: ReviewBookVO
     chapterIdx: number
+    chapterName: string
     chapterTitle: string
     author: Author
 }
