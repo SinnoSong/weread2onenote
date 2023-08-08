@@ -15,6 +15,7 @@ import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { NotebooksComponent } from './components/notebooks/notebooks.component';
 import { BookItemComponent } from './components/book-item/book-item.component';
 import { ReviewComponent } from './components/review/review.component';
+import { NgxWebstorageModule } from "ngx-webstorage";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ReviewComponent } from './components/review/review.component';
     MatToolbarModule,
     MatListModule,
     MatMenuModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxWebstorageModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })

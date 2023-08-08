@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
 import { environment } from 'src/environments/environment';
-import { MsalToken } from 'src/model/msal-token';
+import { MsalToken } from 'src/model/onenote/msal-token';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,9 @@ export class AppComponent implements OnInit {
   title = '微信读书笔记同步OneNote';
   loginDisplay = false;
 
-  constructor(private httpClient: HttpClient
+  constructor(
+    private httpClient: HttpClient,
+    private storage: LocalStorageService
   ) { }
 
   ngOnInit(): void {
@@ -41,21 +44,19 @@ export class AppComponent implements OnInit {
             scope: environment.apiConfig.scopes.join(" "),
             redirect_uri: redirectURl,
             grant_type: "authorization_code",
-            //https://eibpbaimgiabjlckabimpoaablbmnlne.chromiumapp.org/redirect?code=M.C107_BAY.2.aa00d23c-66df-0098-5892-e2b82b075c9a
             code: code,
             code_verifier: codeVerifier
           });
           console.log(body);
-          this.httpClient.post(tokenUrl, body, { headers }).subscribe((result) =>
-            console.log(result)
+          this.httpClient.post<MsalToken>(tokenUrl, body, { headers }).subscribe((result) =>
+            this.storage.store("msalToken", result)
           );
         }
       });
   }
 
-
   logout() {
-    // 删除token
+    this.storage.clear();
   }
 
   private generateFormUrlEncoded(data: any): string {

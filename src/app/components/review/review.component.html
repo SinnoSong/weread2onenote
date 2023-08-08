@@ -1,9 +1,14 @@
 <div>
-
-    <head>{{review?.chapterName}}</head>
-    <p style="color: gray;">{{review?.abstract}}</p>
-    <div *ngIf="review?.content==undefined">
-        <p style="color: orange;">{{review?.content}}</p>
-    </div>
-    <div>同步到。。。</div>
+  <head>
+    {{
+      review?.chapterName
+    }}
+  </head>
+  <p style="color: gray">{{ review?.abstract }}</p>
+  <div *ngIf="review?.content == undefined">
+    <p style="color: orange">{{ review?.content }}</p>
+  </div>
+  <div>
+    同步到<button type="button" (click)="syncToOnenote()">Onenote</button>
+  </div>
 </div>

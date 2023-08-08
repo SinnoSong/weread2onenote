@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BookMarksResultVO } from 'src/model/bookmark-vos';
-import { NotebooksPageVO } from 'src/model/notebook-vos';
-import { ReviewsResult } from 'src/model/review-vos';
+import { BookMarksResultVO } from 'src/model/weread/bookmark-vos';
+import { NotebooksPageVO } from 'src/model/weread/notebook-vos';
+import { ReviewsResult } from 'src/model/weread/review-vos';
 
 
 @Injectable({

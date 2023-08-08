@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NoteBookTO } from 'src/model/notebook-detail-to';
-import { NotebooksPageVO } from 'src/model/notebook-vos';
-import { WereadService } from 'src/service/weread-service';
+import { NoteBookTO } from 'src/model/weread/notebook-detail-to';
+import { NotebooksPageVO } from 'src/model/weread/notebook-vos';
+import { WereadService } from 'src/app/services/weread.service';
 
 @Component({
   selector: 'app-notebooks',

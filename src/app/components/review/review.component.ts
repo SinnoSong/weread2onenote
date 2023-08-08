@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MarkTO } from 'src/model/notebook-detail-to';
+import { OnenoteService } from 'src/app/services/onenote.service';
+import { MarkTO } from 'src/model/weread/notebook-detail-to';
 
 @Component({
   selector: 'app-review',
@@ -13,6 +14,9 @@ export class ReviewComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  constructor(private onenoteService: OnenoteService) { }
 
+  syncToOnenote() {
 
+  }
 }

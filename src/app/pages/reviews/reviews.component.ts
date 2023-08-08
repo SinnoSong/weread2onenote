@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BookMarksResultVO } from 'src/model/bookmark-vos';
-import { MarkTO } from 'src/model/notebook-detail-to';
-import { ReviewsResult } from 'src/model/review-vos';
-import { WereadService } from 'src/service/weread-service';
+import { BookMarksResultVO } from 'src/model/weread/bookmark-vos';
+import { MarkTO } from 'src/model/weread/notebook-detail-to';
+import { ReviewsResult } from 'src/model/weread/review-vos';
+import { WereadService } from 'src/app/services/weread.service';
 
 @Component({
   selector: 'app-reviews',
