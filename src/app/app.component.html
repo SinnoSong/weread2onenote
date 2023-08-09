@@ -1,20 +1,33 @@
 <mat-toolbar color="primary">
-    <a class="title" href="/">{{title}}</a>
+  <a class="title" href="/">{{ title }}</a>
 
-    <div class="toolbar-spacer"></div>
+  <div class="toolbar-spacer"></div>
 
-    <button mat-raised-button [matMenuTriggerFor]="loginMenu" *ngIf="!loginDisplay">Login</button>
-    <mat-menu #loginMenu>
-        <button mat-menu-item (click)="loginRedirect()">Login</button>
-    </mat-menu>
+  <button
+    mat-raised-button
+    [matMenuTriggerFor]="loginMenu"
+    *ngIf="!loginDisplay"
+  >
+    Login
+  </button>
+  <mat-menu #loginMenu>
+    <button mat-menu-item (click)="loginRedirect()">登录</button>
+  </mat-menu>
 
-    <button mat-raised-button [matMenuTriggerFor]="logoutMenu" *ngIf="loginDisplay">Logout</button>
-    <mat-menu #logoutMenu="matMenu">
-        <button mat-menu-item (click)="logout()">Logout</button>
-    </mat-menu>
+  <button
+    mat-raised-button
+    [matMenuTriggerFor]="logoutMenu"
+    *ngIf="loginDisplay"
+  >
+    Logout
+  </button>
+  <mat-menu #logoutMenu="matMenu">
+    <button mat-menu-item (click)="logout()">退出</button>
+  </mat-menu>
+
+  <button mat-menu-item (click)="settings()">设置</button>
 </mat-toolbar>
 
 <div class="container">
-    <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>

@@ -6,9 +6,11 @@
     "mcard",
     "Msal",
     "Onenote",
+    "pkce",
     "Reposted",
     "soldout",
     "synckey",
+    "webstorage",
     "Weread"
   ]
 }

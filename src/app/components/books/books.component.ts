@@ -4,11 +4,11 @@ import { NotebooksPageVO } from 'src/model/weread/notebook-vos';
 import { WereadService } from 'src/app/services/weread.service';
 
 @Component({
-  selector: 'app-notebooks',
-  templateUrl: './notebooks.component.html',
-  styleUrls: ['./notebooks.component.css']
+  selector: 'app-books',
+  templateUrl: './books.component.html',
+  styleUrls: ['./books.component.css']
 })
-export class NotebooksComponent implements OnInit {
+export class BooksComponent implements OnInit {
   notebooks?: NoteBookTO[];
   constructor(private wereadService: WereadService) { }
   ngOnInit(): void {

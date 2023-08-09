@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 import { environment } from 'src/environments/environment';
 import { MsalToken } from 'src/model/onenote/msal-token';
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class AppComponent implements OnInit {
     chrome.identity.launchWebAuthFlow({ url: authUrl, interactive: true },
       (response: string | undefined) => {
         if (response == undefined) {
-          console.log("login failed")
+          alert("登录失败,请重试！");
         } else {
           const tokenUrl = `${environment.msalConfig.auth.authority}/oauth2/v2.0/token`;
           const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
@@ -53,10 +55,20 @@ export class AppComponent implements OnInit {
           );
         }
       });
+    this.loginDisplay = !this.loginDisplay;
   }
 
   logout() {
     this.storage.clear();
+    this.loginDisplay = !this.loginDisplay;
+  }
+
+  settings() {
+    if (!this.loginDisplay) {
+      alert("请先登录！");
+    } else {
+      this.router.navigateByUrl("settings");
+    }
   }
 
   private generateFormUrlEncoded(data: any): string {

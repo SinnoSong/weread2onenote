@@ -12,20 +12,25 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
-import { NotebooksComponent } from './components/notebooks/notebooks.component';
+import { BooksComponent } from './components/books/books.component';
 import { BookItemComponent } from './components/book-item/book-item.component';
 import { ReviewComponent } from './components/review/review.component';
 import { NgxWebstorageModule } from "ngx-webstorage";
-
+import { SettingsComponent } from './pages/settings/settings.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ReviewsComponent,
-    NotebooksComponent,
+    BooksComponent,
     BookItemComponent,
-    ReviewComponent
+    ReviewComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,11 @@ import { NgxWebstorageModule } from "ngx-webstorage";
     MatListModule,
     MatMenuModule,
     HttpClientModule,
-    NgxWebstorageModule.forRoot()
+    NgxWebstorageModule.forRoot(),
+    MatCardModule,
+    MatTreeModule,
+    MatIconModule,
+    MatProgressBarModule
   ],
   bootstrap: [AppComponent]
 })
