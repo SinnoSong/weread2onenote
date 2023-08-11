@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { SettingDataBase } from 'src/app/data-sources/setting-data-source';
-import { SettingDynamicDataSource } from 'src/app/data-sources/setting-dynamic-data-source';
+import { NestedTreeControl } from '@angular/cdk/tree';;
 import { SettingTreeNode } from 'src/model/onenote/setting-tree-node';
+import { LocalStorageService } from "ngx-webstorage";
+import { MsalToken } from 'src/model/onenote/msal-token';
+import { OnenoteService } from 'src/app/services/onenote.service';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -10,24 +13,47 @@ import { SettingTreeNode } from 'src/model/onenote/setting-tree-node';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  constructor(private database: SettingDataBase) {
-    this.treeControl = new FlatTreeControl<SettingTreeNode>(this.getLevel, this.isExpandable);
-    this.dataSource = new SettingDynamicDataSource(this.treeControl, database);
+  treeControl = new NestedTreeControl<SettingTreeNode>(node => node.children);
+  dataSource = new MatTreeNestedDataSource<SettingTreeNode>();
+
+  constructor(
+    private onenoteService: OnenoteService,
+    private storageService: LocalStorageService
+  ) {
   }
+  // todo 修改为2个autoComplete 进行笔记本和分页选择
   ngOnInit(): void {
-    this.database.initialData().subscribe(data => {
-      console.log(data);
-      this.dataSource.data = data;
+    // 获取全部数据组装节点
+    this.getNoteBooks().subscribe(notebooks => {
+      notebooks.forEach(notebook => this.getSections(notebook.id).subscribe(sections => notebook.children = sections));
+      this.dataSource.data = notebooks;
     });
   }
 
-  treeControl: FlatTreeControl<SettingTreeNode>;
 
-  dataSource: SettingDynamicDataSource;
+  private getNoteBooks(): Observable<SettingTreeNode[]> {
+    const msalToken: MsalToken = this.storageService.retrieve("msalToken");
+    return this.onenoteService.getNoteBooks(msalToken.access_token).pipe(map(booksResult => {
+      return booksResult.value.map((vo) => {
+        return {
+          name: vo.displayName,
+          id: vo.id
+        } as SettingTreeNode;
+      });
+    }));
+  }
 
-  getLevel = (node: SettingTreeNode) => node.level;
+  private getSections(noteBookId: string): Observable<SettingTreeNode[]> {
+    const msalToken: MsalToken = this.storageService.retrieve("msalToken");
+    return this.onenoteService.getSections(noteBookId, msalToken.access_token).pipe(map(sectionsResult => {
+      return sectionsResult.value.map((vo) => {
+        return {
+          name: vo.displayName,
+          id: vo.id
+        } as SettingTreeNode;
+      });
+    }));
+  }
 
-  isExpandable = (node: SettingTreeNode) => node.expandable;
-
-  hasChild = (_: number, _nodeData: SettingTreeNode) => _nodeData.expandable;
+  hasChild = (_: number, _nodeData: SettingTreeNode) => !!_nodeData.children && _nodeData.children.length > 0;
 }
