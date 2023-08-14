@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NestedTreeControl } from '@angular/cdk/tree';;
+import { NestedTreeControl } from '@angular/cdk/tree';
 import { SettingTreeNode } from 'src/model/onenote/setting-tree-node';
 import { LocalStorageService } from "ngx-webstorage";
 import { MsalToken } from 'src/model/onenote/msal-token';
@@ -21,11 +21,12 @@ export class SettingsComponent implements OnInit {
     private storageService: LocalStorageService
   ) {
   }
-  // todo 修改为2个autoComplete 进行笔记本和分页选择
+  // todo 修改css为行内
   ngOnInit(): void {
     // 获取全部数据组装节点
     this.getNoteBooks().subscribe(notebooks => {
       notebooks.forEach(notebook => this.getSections(notebook.id).subscribe(sections => notebook.children = sections));
+      console.log(notebooks);
       this.dataSource.data = notebooks;
     });
   }

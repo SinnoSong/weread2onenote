@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,7 +19,6 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -34,7 +32,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   ],
   imports: [
     BrowserModule,
-    NoopAnimationsModule, // Animations cause delay which interfere with E2E tests
     AppRoutingModule,
     MatButtonModule,
     MatToolbarModule,
@@ -45,7 +42,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatCardModule,
     MatTreeModule,
     MatIconModule,
-    MatProgressBarModule
   ],
   bootstrap: [AppComponent]
 })
