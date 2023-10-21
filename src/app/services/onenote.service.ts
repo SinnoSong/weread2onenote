@@ -31,6 +31,8 @@ export class OnenoteService {
     return this.httpClient.get<OneNoteSectionsResult>(url, { headers: header });
   }
 
+  // todo 添加更新指定page
+
   createPage(sectionId: string, token: string, bookName: string, marks: MarkTO[]) {
     const header = new HttpHeaders({
       "Authorization": `Bearer ${token}`,
@@ -46,7 +48,7 @@ export class OnenoteService {
     const body =
       `<html lang="zh-CN">
         <head>
-        <title>微信读书笔记-${bookName}</title>
+        <title>微信读书笔记--${bookName}</title>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <meta name="created" content="${new Date()}" />
         </head>
