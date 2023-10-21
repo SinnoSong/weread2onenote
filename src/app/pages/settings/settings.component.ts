@@ -5,7 +5,7 @@ import { LocalStorageService } from "ngx-webstorage";
 import { MsalToken } from 'src/model/onenote/msal-token';
 import { OnenoteService } from 'src/app/services/onenote.service';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { Observable, map } from 'rxjs';
+import { Observable, forkJoin, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -15,21 +15,30 @@ import { Observable, map } from 'rxjs';
 export class SettingsComponent implements OnInit {
   treeControl = new NestedTreeControl<SettingTreeNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<SettingTreeNode>();
+  notebooks: SettingTreeNode[] = [];
+  selectedNode: SettingTreeNode | undefined;
 
   constructor(
     private onenoteService: OnenoteService,
     private storageService: LocalStorageService
   ) {
   }
-  // todo 修改css为行内
   ngOnInit(): void {
-    // 获取全部数据组装节点
-    this.getNoteBooks().subscribe(notebooks => {
-      notebooks.forEach(notebook => this.getSections(notebook.id).subscribe(sections => notebook.children = sections));
-      console.log(notebooks);
-      this.dataSource.data = notebooks;
+    this.getNoteBooks().pipe(
+      switchMap(notebooks => {
+        this.notebooks = notebooks;
+        const sectionObservables = notebooks.map(notebook => this.getSections(notebook.id));
+        return forkJoin(sectionObservables);
+      })
+    ).subscribe(sections => {
+      this.notebooks.forEach((notebook, index) => {
+        notebook.children = sections[index];
+      });
+      this.dataSource.data = this.notebooks;
     });
+    console.log(this.dataSource.data);
   }
+  // todo 修改css为行内
 
 
   private getNoteBooks(): Observable<SettingTreeNode[]> {
@@ -56,5 +65,17 @@ export class SettingsComponent implements OnInit {
     }));
   }
 
-  hasChild = (_: number, _nodeData: SettingTreeNode) => !!_nodeData.children && _nodeData.children.length > 0;
+  confirm() {
+    if (this.selectedNode == undefined) {
+      alert("请选择笔记本");
+    }
+    else {
+      this.storageService.store("syncNode", this.selectedNode);
+    }
+  }
+  selectSection(node: SettingTreeNode) {
+    this.selectedNode = node;
+  }
+
+  hasChild = (_: number, _nodeData: SettingTreeNode) => _nodeData.children && _nodeData.children.length > 0;
 }
