@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -30,8 +30,6 @@ export class OnenoteService {
     const url = `${environment.apiConfig.uri}/onenote/notebooks/${noteBookId}/sections`;
     return this.httpClient.get<OneNoteSectionsResult>(url, { headers: header });
   }
-
-  // todo 添加更新指定page
 
   createPage(sectionId: string, token: string, bookName: string, marks: MarkTO[]) {
     const header = new HttpHeaders({
@@ -73,6 +71,26 @@ export class OnenoteService {
     });
     const url = `${environment.apiConfig.uri}/onenote/pages/${pageId}/content`;
     return this.httpClient.get<string>(url, { headers: header });
+  }
+
+  updatePageContent(pageId: string, token: string, marks: MarkTO[]) {
+    const header = new HttpHeaders({
+      "Authorization": `Bearer ${token}`,
+    });
+    const url = `${environment.apiConfig.uri}/onenote/pages/${pageId}/content`;
+    const updateContents = marks.flatMap(mark => {
+      return {
+        target: "body",
+        action: "append",
+        content: `
+        <p style="font-family: Calibri; margin-top: 6pt; margin-bottom: 6pt">
+          <span style="font-family: Microsoft YaHei UI; font-size: 14pt">${mark.abstract}</span>
+          <span style="font-family: Microsoft YaHei UI; font-size: 12pt">${mark.content}</span>
+          <span style="font-family: Microsoft YaHei UI; >${mark.chapterName}</span>
+        </p>`
+      };
+    });
+    return this.httpClient.patch<HttpResponse<any>>(url, updateContents, { headers: header });
   }
 
   refreshToken(refreshToken: string): Observable<MsalToken> {

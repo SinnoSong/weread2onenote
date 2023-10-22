@@ -34,11 +34,13 @@ export class ReviewsComponent implements OnInit {
       .subscribe(pagesResult => {
         const values = pagesResult.value.filter(vo => vo.title === `微信读书笔记--${this.bookTitle}`);
         if (values.length > 0) {
-          //todo 存在相同标题的笔记,对比这个页面的内容是否包含reviews的内容
+          //存在相同标题的笔记,对比这个页面的内容是否包含reviews的内容
           const pageId = values[0].id;
           this.onenoteService.getPageContent(pageId, accessToken).subscribe(pageContent => {
             if (!this.reviews.every(review => pageContent.includes(review.content))) {
-              // todo onenote service调用更新pageContent
+              // 调用更新pageContent
+              const others = this.reviews.filter(review => !pageContent.includes(review.content));
+              this.onenoteService.updatePageContent(pageId, accessToken, others);
             }
           });
         } else {
