@@ -40,7 +40,8 @@ export class ReviewsComponent implements OnInit {
             if (!this.reviews.every(review => pageContent.includes(review.content))) {
               // 调用更新pageContent
               const others = this.reviews.filter(review => !pageContent.includes(review.content));
-              this.onenoteService.updatePageContent(pageId, accessToken, others);
+              this.onenoteService.updatePageContent(pageId, accessToken, others).subscribe(response =>
+                response.status == 204 ? alert("更新成功") : alert("更新失败"));
             }
           });
         } else {
