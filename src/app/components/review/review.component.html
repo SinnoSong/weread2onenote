@@ -1,11 +1,9 @@
 <div>
-  <head>
-    {{
-      review?.chapterName
-    }}
-  </head>
+  <h4>
+    {{ review?.chapterName }}
+  </h4>
   <p style="color: gray">{{ review?.abstract }}</p>
-  <div *ngIf="review?.content == undefined">
+  <div *ngIf="review?.content !== undefined">
     <p style="color: orange">{{ review?.content }}</p>
   </div>
 </div>

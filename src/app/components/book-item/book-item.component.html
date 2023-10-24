@@ -1,8 +1,12 @@
-<div routerLink="/reviews/{{ bookItem?.bookId }}">
-  <p style="font-size: larger">{{ bookItem?.name }}</p>
+<div>
+  <p style="font-size: larger" routerLink="/reviews/{{ bookItem?.bookId }}">
+    {{ bookItem?.name }}
+  </p>
   <div>{{ bookItem?.noteCount }}条划线，{{ bookItem?.reviewCount }}条想法</div>
   <br />
   <div>
-    同步到<button type="button" (click)="syncToOneNote()">Onenote</button>
+    同步到<button mat-stroked-button color="primary" (click)="syncToOneNote()">
+      Onenote
+    </button>
   </div>
 </div>

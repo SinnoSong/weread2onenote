@@ -1,6 +1,16 @@
-<div *ngFor="let review of reviews">
-  <app-review [review]="review"></app-review>
+<div>
+  <div *ngFor="let review of reviews">
+    <app-review [review]="review"></app-review>
+  </div>
+  <br />
   <div>
-    同步到<button type="button" (click)="syncToOnenote()">Onenote</button>
+    同步到<button
+      mat-stroked-button
+      color="primary"
+      type="button"
+      (click)="syncToOnenote()"
+    >
+      Onenote
+    </button>
   </div>
 </div>
