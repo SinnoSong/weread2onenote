@@ -6,6 +6,7 @@ import { MsalToken } from 'src/model/onenote/msal-token';
 import { OnenoteService } from 'src/app/services/onenote.service';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Observable, forkJoin, map, switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -20,7 +21,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private onenoteService: OnenoteService,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
+    private router: Router
   ) {
   }
   ngOnInit(): void {
@@ -38,7 +40,7 @@ export class SettingsComponent implements OnInit {
     });
     console.log(this.dataSource.data);
   }
-  // todo 修改css为行内
+  // todo 修改样式问题
 
 
   private getNoteBooks(): Observable<SettingTreeNode[]> {
@@ -71,6 +73,8 @@ export class SettingsComponent implements OnInit {
     }
     else {
       this.storageService.store("syncNode", this.selectedNode);
+      alert("设置成功！");
+      this.router.navigateByUrl("");
     }
   }
   selectSection(node: SettingTreeNode) {

@@ -1,11 +1,35 @@
+<mat-toolbar color="primary">
+  <span>{{ title }}</span>
+  <span class="example-spacer"></span>
+  <div class="button-row">
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="!loginDisplay"
+      (click)="loginRedirect()"
+    >
+      登录
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="loginDisplay"
+      (click)="logout()"
+    >
+      退出
+    </button>
+
+    <button mat-stroked-button color="primary" (click)="settings()">
+      设置
+    </button>
+  </div>
+</mat-toolbar>
+
 <div *ngIf="!loginDisplay">
-  <p>Please sign-in to see your profile information.</p>
+  <p>请登录微软账号，将笔记信息同步至OneNote</p>
 </div>
 
-<div *ngIf="loginDisplay">
-  <p>Login successful!</p>
-  <p>Request your profile information by clicking Profile above.</p>
-</div>
 <div class="books">
   <app-books></app-books>
 </div>
