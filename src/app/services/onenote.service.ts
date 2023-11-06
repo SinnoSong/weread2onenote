@@ -37,12 +37,22 @@ export class OnenoteService {
       "Content-Type": "text/html",
     });
     const url = `${environment.apiConfig.uri}/onenote/sections/${sectionId}/pages`;
-    const content = marks.map(mark =>
-      `<p style="font-family: Calibri; margin-top: 6pt; margin-bottom: 6pt">
-        <span style="font-family: Microsoft YaHei UI; font-size: 14pt">${mark.abstract}</span>
-        <span style="font-family: Microsoft YaHei UI; font-size: 12pt">${mark.content}</span>
-        <span style="font-family: Microsoft YaHei UI; >${mark.chapterName}</span>
-      </p>`).join("<br />");;
+    const content = marks.map(mark => {
+      let section = `<p style="font-family: Calibri; margin-top: 6pt; margin-bottom: 6pt">`;
+      if (mark.abstract !== undefined) {
+        section += `<span style="font-family: Microsoft YaHei UI; font-size: 14pt">${mark.abstract}</span>
+        <br />`
+      }
+      if (mark.content !== undefined) {
+        section += `<span style="font-family: Microsoft YaHei UI; font-size: 12pt">${mark.content}</span>
+        <br />`
+      }
+      if (mark.chapterName !== undefined) {
+        section += `<span style="font-family: Microsoft YaHei UI; font-size: 10pt >${mark.chapterName}</span>  
+        </p>`
+      }
+      return section;
+    }).join("<br /><br /><br /><br />");;
     const body =
       `<html lang="zh-CN">
         <head>
