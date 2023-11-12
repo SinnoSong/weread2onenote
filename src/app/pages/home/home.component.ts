@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loginDisplay = this.storage.retrieve("msalToken") !== null;
+    const msalToken: MsalToken = this.storage.retrieve("msalToken");
+    this.loginDisplay = (msalToken !== null && msalToken.expires_in > new Date().getTime());
   }
 
   async loginRedirect() {
@@ -50,10 +51,11 @@ export class HomeComponent implements OnInit {
             code: code,
             code_verifier: codeVerifier
           });
-          console.log(body);
-          this.httpClient.post<MsalToken>(tokenUrl, body, { headers }).subscribe((result) =>
+          this.httpClient.post<MsalToken>(tokenUrl, body, { headers }).subscribe((result) => {
+            result.expires_in = new Date().getTime() + result.expires_in * 1000 - 2000;
+            result.ext_expires_in = new Date().getTime() + result.expires_in * 1000 - 2000;
             this.storage.store("msalToken", result)
-          );
+          });
         }
       });
     this.loginDisplay = !this.loginDisplay;
