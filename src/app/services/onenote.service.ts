@@ -15,25 +15,18 @@ export class OnenoteService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getNoteBooks(token: string): Observable<OneNoteNoteBooksResult> {
-    const header = new HttpHeaders({
-      "Authorization": `Bearer ${token}`,
-    });
+  getNoteBooks(): Observable<OneNoteNoteBooksResult> {
     const url = `${environment.apiConfig.uri}/onenote/notebooks`;
-    return this.httpClient.get<OneNoteNoteBooksResult>(url, { headers: header });
+    return this.httpClient.get<OneNoteNoteBooksResult>(url);
   }
 
-  getSections(noteBookId: string, token: string): Observable<OneNoteSectionsResult> {
-    const header = new HttpHeaders({
-      "Authorization": `Bearer ${token}`,
-    });
+  getSections(noteBookId: string): Observable<OneNoteSectionsResult> {
     const url = `${environment.apiConfig.uri}/onenote/notebooks/${noteBookId}/sections`;
-    return this.httpClient.get<OneNoteSectionsResult>(url, { headers: header });
+    return this.httpClient.get<OneNoteSectionsResult>(url);
   }
 
-  createPage(sectionId: string, token: string, bookName: string, marks: MarkTO[]) {
+  createPage(sectionId: string, bookName: string, marks: MarkTO[]) {
     const header = new HttpHeaders({
-      "Authorization": `Bearer ${token}`,
       "Content-Type": "text/html",
     });
     const url = `${environment.apiConfig.uri}/onenote/sections/${sectionId}/pages`;
@@ -67,26 +60,17 @@ export class OnenoteService {
     return this.httpClient.post(url, body, { headers: header });
   }
 
-  getPages(sectionId: string, token: string): Observable<OneNotePagesResult> {
-    const header = new HttpHeaders({
-      "Authorization": `Bearer ${token}`,
-    });
+  getPages(sectionId: string): Observable<OneNotePagesResult> {
     const url = `${environment.apiConfig.uri}/onenote/sections/${sectionId}/pages`;
-    return this.httpClient.get<OneNotePagesResult>(url, { headers: header });
+    return this.httpClient.get<OneNotePagesResult>(url);
   }
 
-  getPageContent(pageId: string, token: string): Observable<string> {
-    const header = new HttpHeaders({
-      "Authorization": `Bearer ${token}`,
-    });
+  getPageContent(pageId: string): Observable<string> {
     const url = `${environment.apiConfig.uri}/onenote/pages/${pageId}/content`;
-    return this.httpClient.get<string>(url, { headers: header });
+    return this.httpClient.get<string>(url);
   }
 
-  updatePageContent(pageId: string, token: string, marks: MarkTO[]) {
-    const header = new HttpHeaders({
-      "Authorization": `Bearer ${token}`,
-    });
+  updatePageContent(pageId: string, marks: MarkTO[]) {
     const url = `${environment.apiConfig.uri}/onenote/pages/${pageId}/content`;
     const updateContents = marks.flatMap(mark => {
       return {
@@ -100,7 +84,7 @@ export class OnenoteService {
         </p>`
       };
     });
-    return this.httpClient.patch<HttpResponse<any>>(url, updateContents, { headers: header });
+    return this.httpClient.patch<HttpResponse<any>>(url, updateContents);
   }
 
   refreshToken(refreshToken: string): Observable<MsalToken> {

@@ -44,8 +44,7 @@ export class SettingsComponent implements OnInit {
 
 
   private getNoteBooks(): Observable<SettingTreeNode[]> {
-    const msalToken: MsalToken = this.storageService.retrieve("msalToken");
-    return this.onenoteService.getNoteBooks(msalToken.access_token).pipe(map(booksResult => {
+    return this.onenoteService.getNoteBooks().pipe(map(booksResult => {
       return booksResult.value.map((vo) => {
         return {
           name: vo.displayName,
@@ -56,8 +55,7 @@ export class SettingsComponent implements OnInit {
   }
 
   private getSections(noteBookId: string): Observable<SettingTreeNode[]> {
-    const msalToken: MsalToken = this.storageService.retrieve("msalToken");
-    return this.onenoteService.getSections(noteBookId, msalToken.access_token).pipe(map(sectionsResult => {
+    return this.onenoteService.getSections(noteBookId).pipe(map(sectionsResult => {
       return sectionsResult.value.map((vo) => {
         return {
           name: vo.displayName,

@@ -40,23 +40,23 @@ export class ReviewsComponent implements OnInit {
       alert("请选择要同步的笔记本!");
       return;
     }
-    this.onenoteService.getPages(syncNode.id, msalToken.access_token)
+    this.onenoteService.getPages(syncNode.id)
       .subscribe(pagesResult => {
         const values = pagesResult.value.filter(vo => vo.title === `微信读书笔记--${this.bookTitle}`);
         if (values.length > 0) {
           //存在相同标题的笔记,对比这个页面的内容是否包含reviews的内容
           const pageId = values[0].id;
-          this.onenoteService.getPageContent(pageId, msalToken.access_token).subscribe(pageContent => {
+          this.onenoteService.getPageContent(pageId).subscribe(pageContent => {
             if (!this.reviews.every(review => pageContent.includes(review.content))) {
               // 调用更新pageContent
               const others = this.reviews.filter(review => !pageContent.includes(review.content));
-              this.onenoteService.updatePageContent(pageId, msalToken.access_token, others).subscribe(response =>
+              this.onenoteService.updatePageContent(pageId, others).subscribe(response =>
                 response.status == 204 ? alert("更新成功") : alert("更新失败"));
             }
           });
         } else {
           //创建新page将全部reviews写入到page中
-          this.onenoteService.createPage(syncNode.id, msalToken.access_token, this.bookTitle!, this.reviews).subscribe();
+          this.onenoteService.createPage(syncNode.id, this.bookTitle!, this.reviews).subscribe();
         }
       });
   }

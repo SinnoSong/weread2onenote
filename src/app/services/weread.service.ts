@@ -12,24 +12,20 @@ import { ReviewsResult } from 'src/model/weread/review-vos';
 export class WereadService {
     constructor(private httpClient: HttpClient) {
     }
-    private header = new HttpHeaders({
-        'accept': "*/*",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,zh-TW;q=0.5"
-    });
 
     getNoteBooks(): Observable<NotebooksPageVO> {
         const url = 'https://i.weread.qq.com/user/notebooks';
-        return this.httpClient.get<NotebooksPageVO>(url, { headers: this.header, withCredentials: true });
+        return this.httpClient.get<NotebooksPageVO>(url);
     }
 
     getBookMarks(bookId: string): Observable<BookMarksResultVO> {
         const url = `https://i.weread.qq.com/book/bookmarklist?bookId=${bookId}`;
-        return this.httpClient.get<BookMarksResultVO>(url, { headers: this.header, withCredentials: true });
+        return this.httpClient.get<BookMarksResultVO>(url);
     }
 
     getReviews(bookId: string): Observable<ReviewsResult> {
         const url = `https://i.weread.qq.com/review/list?bookId=${bookId}&listType=11&mine=1&synckey=0&listMode=0`;
-        return this.httpClient.get<ReviewsResult>(url, { headers: this.header, withCredentials: true });
+        return this.httpClient.get<ReviewsResult>(url);
     }
 
     // 暂时不需要
