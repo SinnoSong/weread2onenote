@@ -34,18 +34,18 @@ export class OnenoteService {
       let section = `<p style="font-family: Calibri; margin-top: 6pt; margin-bottom: 6pt">`;
       if (mark.abstract !== undefined) {
         section += `<span style="font-family: Microsoft YaHei UI; font-size: 14pt">${mark.abstract}</span>
-        <br />`
+        <br />`;
       }
       if (mark.content !== undefined) {
         section += `<span style="font-family: Microsoft YaHei UI; font-size: 12pt">${mark.content}</span>
-        <br />`
+        <br />`;
       }
       if (mark.chapterName !== undefined) {
         section += `<span style="font-family: Microsoft YaHei UI; font-size: 10pt >${mark.chapterName}</span>  
-        </p>`
+        </p>`;
       }
       return section;
-    }).join("<br /><br /><br /><br />");;
+    }).join("<br /><br />");;
     const body =
       `<html lang="zh-CN">
         <head>
@@ -73,15 +73,23 @@ export class OnenoteService {
   updatePageContent(pageId: string, marks: MarkTO[]) {
     const url = `${environment.apiConfig.uri}/onenote/pages/${pageId}/content`;
     const updateContents = marks.flatMap(mark => {
+      let content = `<p style="font-family: Calibri; margin-top: 6pt; margin-bottom: 6pt">`;
+      if (mark.abstract !== undefined) {
+        content += `<span style="font-family: Microsoft YaHei UI; font-size: 14pt">${mark.abstract}</span>
+        <br />`;
+      }
+      if (mark.content !== undefined) {
+        content += `<span style="font-family: Microsoft YaHei UI; font-size: 12pt">${mark.content}</span>
+        <br />`;
+      }
+      if (mark.chapterName !== undefined) {
+        content += `<span style="font-family: Microsoft YaHei UI; font-size: 10pt >${mark.chapterName}</span>  
+        </p>`;
+      }
       return {
         target: "body",
         action: "append",
-        content: `
-        <p style="font-family: Calibri; margin-top: 6pt; margin-bottom: 6pt">
-          <span style="font-family: Microsoft YaHei UI; font-size: 14pt">${mark.abstract}</span>
-          <span style="font-family: Microsoft YaHei UI; font-size: 12pt">${mark.content}</span>
-          <span style="font-family: Microsoft YaHei UI; >${mark.chapterName}</span>
-        </p>`
+        content: content
       };
     });
     return this.httpClient.patch<HttpResponse<any>>(url, updateContents);

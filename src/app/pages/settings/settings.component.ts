@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { SettingTreeNode } from 'src/model/onenote/setting-tree-node';
 import { LocalStorageService } from "ngx-webstorage";
-import { MsalToken } from 'src/model/onenote/msal-token';
 import { OnenoteService } from 'src/app/services/onenote.service';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Observable, forkJoin, map, switchMap } from 'rxjs';
