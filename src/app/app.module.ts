@@ -12,28 +12,14 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { HomeComponent } from './pages/home/home.component';
-import { ReviewsComponent } from './pages/reviews/reviews.component';
-import { BooksComponent } from './components/books/books.component';
-import { BookItemComponent } from './components/book-item/book-item.component';
-import { ReviewComponent } from './components/review/review.component';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SettingsComponent } from './pages/settings/settings.component';
+import { provideNgxWebstorage, withLocalStorage } from 'ngx-webstorage';
 import { MatCardModule } from '@angular/material/card';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpInterceptorProviders } from './interceptors';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ReviewsComponent,
-    BooksComponent,
-    BookItemComponent,
-    ReviewComponent,
-    SettingsComponent,
-  ],
+  declarations: [AppComponent],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
@@ -42,7 +28,6 @@ import { HttpInterceptorProviders } from './interceptors';
     MatToolbarModule,
     MatListModule,
     MatMenuModule,
-    NgxWebstorageModule.forRoot(),
     MatCardModule,
     MatTreeModule,
     MatIconModule,
@@ -50,6 +35,7 @@ import { HttpInterceptorProviders } from './interceptors';
   providers: [
     HttpInterceptorProviders,
     provideHttpClient(withInterceptorsFromDi()),
+    provideNgxWebstorage(withLocalStorage()),
   ],
 })
 export class AppModule {}
