@@ -103,6 +103,7 @@
     }
   },
   "cli": {
-    "analytics": "5f6bceeb-588e-4aec-8258-afb76358ffed"
+    "analytics": "5f6bceeb-588e-4aec-8258-afb76358ffed",
+    "packageManager": "pnpm"
   }
 }
