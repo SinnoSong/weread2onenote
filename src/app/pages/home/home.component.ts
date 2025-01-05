@@ -7,9 +7,10 @@ import { MsalToken } from 'src/model/onenote/msal-token';
 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    standalone: false
 })
 export class HomeComponent implements OnInit {
   title = '微信读书笔记同步OneNote';

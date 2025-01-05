@@ -4,9 +4,10 @@ import { NotebooksPageVO } from 'src/model/weread/notebook-vos';
 import { WereadService } from 'src/app/services/weread.service';
 
 @Component({
-  selector: 'app-books',
-  templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css']
+    selector: 'app-books',
+    templateUrl: './books.component.html',
+    styleUrls: ['./books.component.css'],
+    standalone: false
 })
 export class BooksComponent implements OnInit {
   notebooks?: NoteBookTO[];

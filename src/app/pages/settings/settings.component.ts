@@ -8,9 +8,10 @@ import { Observable, forkJoin, map, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.css'],
+    standalone: false
 })
 export class SettingsComponent implements OnInit {
   treeControl = new NestedTreeControl<SettingTreeNode>(node => node.children);
