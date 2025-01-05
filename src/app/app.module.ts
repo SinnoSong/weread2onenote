@@ -8,13 +8,16 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { BooksComponent } from './components/books/books.component';
 import { BookItemComponent } from './components/book-item/book-item.component';
 import { ReviewComponent } from './components/review/review.component';
-import { NgxWebstorageModule } from "ngx-webstorage";
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTreeModule } from '@angular/material/tree';
@@ -29,8 +32,9 @@ import { HttpInterceptorProviders } from './interceptors';
     BooksComponent,
     BookItemComponent,
     ReviewComponent,
-    SettingsComponent
+    SettingsComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,15 +42,14 @@ import { HttpInterceptorProviders } from './interceptors';
     MatToolbarModule,
     MatListModule,
     MatMenuModule,
-    HttpClientModule,
     NgxWebstorageModule.forRoot(),
     MatCardModule,
     MatTreeModule,
     MatIconModule,
   ],
   providers: [
-    HttpInterceptorProviders
+    HttpInterceptorProviders,
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
